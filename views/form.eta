@@ -10,8 +10,8 @@
 
 <div class="content"><%~ it.texts.intro %></div>
 <% if (eventFull) { %>
-  <div class="notification is-warning">The event is full. You can still register to join the waitlist.</div>
-<% } %>
+  <div class="notification is-warning">The event is full. Please contact the organizers.</div>
+<% } else { %>
 
 <form method="post" action="/register" id="form">
   <script type="application/json" id="fees"><%~ JSON.stringify({
@@ -48,15 +48,15 @@
     <label class="label">Accommodation preferences</label>
     <% group('sleeping').forEach(o => { %>
       <label class="radio is-block mb-2">
-        <input type="radio" name="sleeping" value="<%= o.id %>" data-price="<%= o.price %>" data-label="<%= o.label %>" required>
+        <input type="radio" name="sleeping" value="<%= o.id %>" data-price="<%= o.price %>" data-label="<%= o.label %>" required<%= o.left === 0 ? ' disabled' : '' %>>
         <%= o.label %> <% if (o.price) { %>(<%= money(o.price) %>)<% } %>
-        <% if (o.left === 0) { %><span class="tag is-warning">full – waitlist</span>
+        <% if (o.left === 0) { %><span class="tag is-warning">full</span>
         <% } else if (o.left !== undefined) { %><span class="tag is-light"><%= o.left %> of <%= o.quantity %> left</span><% } %>
       </label>
     <% }) %>
   </div>
   <div class="field">
-    <label class="label" for="accommodation_comments">Comments on accommodations (e.g., fallback if your choice is full, relative preferences)</label>
+    <label class="label" for="accommodation_comments">Comments on accommodations (e.g., request accommodations, relative preferences)</label>
     <textarea class="textarea" id="accommodation_comments" name="accommodation_comments" rows="2"></textarea>
   </div>
 
@@ -124,3 +124,4 @@
   </div>
 </form>
 <script src="/form.js"></script>
+<% } %>

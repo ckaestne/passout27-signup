@@ -1,13 +1,6 @@
 <% layout('./layout') %>
-<% if (it.row.status === 'waitlist') { %>
-  <div class="notification is-warning">
-    Thank you, <%= it.row.name %>! Your choice (<%= it.sleeping?.label %>) or the event is full,
-    so you are on the waitlist. We will contact you.
-  </div>
-<% } else { %>
-  <div class="notification is-success">
-    Thank you, <%= it.row.name %>! We received your registration. We will confirm it by email.
-  </div>
-<% } %>
+<div class="notification is-success">
+  Thank you, <%= it.row.name %>! We received your registration. We will confirm it by email.
+</div>
 <p class="mb-3">Total: <strong><%= it.row.price_total %></strong></p>
 <p><%= it.config.paymentInstructions %></p>

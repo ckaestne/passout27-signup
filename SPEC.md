@@ -39,9 +39,9 @@ only if no key). One Fly.io machine, scales to zero.
     email, +50, +100).
 - Tab `registrations`: one row per person: timestamp, form answers,
   `price_total`, `price_lines`, and `status` (pending / confirmed /
-  waitlist / cancelled). The app writes new rows with `pending` or
-  `waitlist`. The organizers manage everything else by hand in the sheet
-  (confirm, cancel, move people off the waitlist, add own columns).
+  cancelled). The app writes new rows with `pending`. The organizers
+  manage everything else by hand in the sheet (confirm, cancel, add own
+  columns).
   Columns found by header name.
 
 ## Behavior
@@ -57,16 +57,15 @@ only if no key). One Fly.io machine, scales to zero.
 3. **Availability**: "left" = quantity − rows in `registrations` with that
    option and status pending or confirmed. Each bed shows "N of M left".
    Changes in the sheet show on the next page load.
-4. **Waitlist**: a full option (or a full event) can still be chosen,
-   marked "waitlist". The row then gets status `waitlist`. Nothing else;
-   the organizers handle it in the sheet.
+4. **Full**: a full option cannot be chosen. If the event is full, the
+   form is closed.
 5. **Email** on submit: to the attendee (answers, price lines, total,
    deposit, payment instructions) and to the organizers.
 6. Honeypot field against spam.
 
 ## Not in v1
 
-Admin page, payment, self-service changes, emails on status changes,
+Admin page, waitlist, payment, self-service changes, emails on status changes,
 checking bed partners.
 
 ## Tasks

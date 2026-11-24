@@ -48,14 +48,9 @@ app.get('/', async (req, res) => {
 app.post('/register', async (req, res) => {
   const form = req.body;
   if (form.website) return res.redirect('/'); // honeypot
-  const options = withAvailability(await loadData());
-  const sleeping = options.find(o => o.id === form.sleeping);
-  const registration = options.find(o => o.id === 'registration');
-  const full = o => o && o.left !== undefined && o.left <= 0;
-  const status = full(sleeping) || full(registration) ? 'waitlist' : 'pending';
-  const row = { timestamp: new Date().toISOString(), ...form, status };
+  const row = { timestamp: new Date().toISOString(), ...form, status: 'pending' };
   console.log('registration', row); // TODO (task 2): append to the spreadsheet; task 3: send emails
-  res.send(eta.render('thanks', { config, row, sleeping }));
+  res.send(eta.render('thanks', { config, row }));
 });
 
 app.get('/healthz', (req, res) => res.send('ok'));
