@@ -32,7 +32,7 @@ function summary(row, options) {
     `Transport: ${row.transport}`, `Transport comments: ${row.transport_comments}`,
     `Diet: ${row.diet}`, `Safe and included: ${row.safety}`, `Anything else: ${row.other}`,
     '', 'Price:', row.price_lines,
-  ].join('\n').replaceAll('undefined', '');
+  ].join('\n');
 }
 
 const app = express();
@@ -52,7 +52,7 @@ app.post('/register', async (req, res) => {
   const form = req.body;
   if (form.website) return res.redirect('/'); // honeypot
   if (!form.name || !form.email || !form.sleeping || !form.discount) return res.status(400).send('Please fill in all required fields.');
-  const row = { ...form, timestamp: new Date().toISOString(), status: 'pending' };
+  const row = { transport: '', ...form, timestamp: new Date().toISOString(), status: 'pending' };
   const { options } = await loadData();
   await addRegistration(row);
 
