@@ -37,9 +37,11 @@ only if no key). One Fly.io machine, scales to zero.
     camping, unlimited, at camping price.
   - discount rows: as in 2026 (none, youth, −100, −200, other amount by
     email, +50, +100).
-- Tab `registrations`: one row per person, with form answers, `status`
-  (pending / confirmed / waitlist / cancelled), `sleeping`, `waitlist_for`,
-  `price_total`, `price_lines`, `deposit_paid`, `admin_notes`, `token`.
+- Tab `registrations`: one row per person: timestamp, form answers,
+  `price_total`, `price_lines`, and `status` (pending / confirmed /
+  waitlist / cancelled). The app writes new rows with `pending` or
+  `waitlist`. The organizers manage everything else by hand in the sheet
+  (confirm, cancel, move people off the waitlist, add own columns).
   Columns found by header name.
 
 ## Behavior
@@ -50,28 +52,26 @@ only if no key). One Fly.io machine, scales to zero.
 2. **Live price**: fee = base − missed nights × reduction (or nights ×
    short-stay rate if ≤ max short nights; 0 for youth) + sleeping price +
    discount/support. "Custom" discount → total "to be agreed". Show lines,
-   total and deposit. Server recalculates with the same module.
-3. **Availability**: each bed shows "N of M left". Pending and confirmed
-   hold a place. Writes go through one lock to avoid double booking.
-4. **Waitlist**: if a bed is full, join its waitlist, optionally with a
-   fallback option that is reserved now. If the event is full, new
-   registrations go to the waitlist.
-5. **Admin** (`/admin`, password): list and filter; confirm, cancel,
-   promote, mark deposit paid. Editing the sheet directly also works.
-6. **Email** to attendee on received / waitlisted / confirmed / promoted /
-   cancelled, with price and a link to a read-only page `/r/:token`.
-   Organizers get a mail for each new registration.
-7. Honeypot field against spam.
+   total and deposit. Server recalculates with the same code.
+3. **Availability**: "left" = quantity − rows in `registrations` with that
+   option and status pending or confirmed. Each bed shows "N of M left".
+   Changes in the sheet show on the next page load.
+4. **Waitlist**: a full option (or a full event) can still be chosen,
+   marked "waitlist". The row then gets status `waitlist`. Nothing else;
+   the organizers handle it in the sheet.
+5. **Email** on submit: to the attendee (answers, price lines, total,
+   deposit, payment instructions) and to the organizers.
+6. Honeypot field against spam.
 
 ## Not in v1
 
-Payment, self-service changes, automatic waitlist promotion, checking bed
-partners.
+Admin page, payment, self-service changes, emails on status changes,
+checking bed partners.
 
 ## Tasks
 
-- [ ] Scaffold, pricing module + tests, form with live price on sample data
-- [ ] Sheets storage, availability, waitlist, submit, `/r/:token`
-- [ ] Admin page
+- [ ] Scaffold, price calculation + tests, form with live price on sample
+      data
+- [ ] Sheets: read options and availability, append registration
 - [ ] Emails
 - [ ] Dockerfile, fly.toml, README with setup steps
