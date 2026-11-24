@@ -2,7 +2,7 @@
 about an hour and a half south of St. Louis, at
 [Mitchell Pass Lodge](https://www.mitchellpasslodge.com) ([AirBnB listing](https://www.airbnb.ca/rooms/1153070325669533957)).
 
-[Mitchell Pass Lodge, 5341 Mitchell Pass, Park Hills, MO 63601](https://maps.app.goo.gl/QeiQNNjGcfPABhV48)
+Address: [Mitchell Pass Lodge, 5341 Mitchell Pass, Park Hills, MO 63601](https://maps.app.goo.gl/QeiQNNjGcfPABhV48)
 
 The base registration fee of {base_fee} covers food and juggling space and a space to camp for 8 nights. 
 There is a separate fee for a bed or indoor space and adjustments for shorter durations, scholarships, and supporter tickets. The price updates at the bottom of this page
