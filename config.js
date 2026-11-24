@@ -6,7 +6,6 @@ export default {
   end: '2027-04-18',
   deposit: 200,
   organizerEmails: ['christian.k@stner.de'],
-  paymentInstructions: 'We will email you how to pay the deposit.',
   transportOptions: [
     "I'll organize my own transport to the site",
     "I'd like to be picked up from St. Louis Airport (STL) on the first day and brought back on the last day",

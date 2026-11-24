@@ -3,25 +3,12 @@ import { Eta } from 'eta';
 import { marked } from 'marked';
 import { readFileSync } from 'node:fs';
 import config from './config.js';
+import { loadData, addRegistration, withAvailability } from './data.js';
+import { sendMail } from './mail.js';
 
 const eta = new Eta({ views: new URL('./views', import.meta.url).pathname });
 const content = name => marked.parse(readFileSync(new URL(`./content/${name}.md`, import.meta.url), 'utf8'));
 const texts = Object.fromEntries(['intro', 'about', 'accommodations', 'scholarship', 'dates'].map(n => [n, content(n)]));
-
-// TODO (task 2): read from the spreadsheet.
-async function loadData() {
-  return JSON.parse(readFileSync(new URL('./sample-data.json', import.meta.url), 'utf8'));
-}
-
-// Adds `left` to every option with a quantity. Pending and confirmed rows hold a place.
-function withAvailability({ options, registrations }) {
-  const active = registrations.filter(r => r.status === 'pending' || r.status === 'confirmed');
-  return options.map(o => {
-    if (!o.quantity) return o;
-    const used = o.id === 'registration' ? active.length : active.filter(r => r.sleeping === o.id).length;
-    return { ...o, left: Math.max(0, o.quantity - used) };
-  });
-}
 
 // All event days as { value: '2027-04-10', label: 'Saturday, April 10' }.
 function eventDays() {
@@ -33,6 +20,19 @@ function eventDays() {
     });
   }
   return days;
+}
+
+// Plain-text summary of a registration for the emails.
+function summary(row, options) {
+  const label = id => options.find(o => o.id === id)?.label || id;
+  return [
+    `Name: ${row.name}`, `Email: ${row.email}`, `Phone: ${row.phone}`, `Last PassOut: ${row.last_passout}`,
+    `Accommodation: ${label(row.sleeping)}`, `Accommodation comments: ${row.accommodation_comments}`,
+    `Discount/support: ${label(row.discount)}`, `Arrive: ${row.arrive}`, `Leave: ${row.leave}`,
+    `Transport: ${row.transport}`, `Transport comments: ${row.transport_comments}`,
+    `Diet: ${row.diet}`, `Safe and included: ${row.safety}`, `Anything else: ${row.other}`,
+    '', 'Price:', row.price_lines,
+  ].join('\n').replaceAll('undefined', '');
 }
 
 const app = express();
@@ -51,8 +51,17 @@ app.get('/', async (req, res) => {
 app.post('/register', async (req, res) => {
   const form = req.body;
   if (form.website) return res.redirect('/'); // honeypot
-  const row = { timestamp: new Date().toISOString(), ...form, status: 'pending' };
-  console.log('registration', row); // TODO (task 2): append to the spreadsheet; task 3: send emails
+  if (!form.name || !form.email || !form.sleeping || !form.discount) return res.status(400).send('Please fill in all required fields.');
+  const row = { ...form, timestamp: new Date().toISOString(), status: 'pending' };
+  const { options } = await loadData();
+  await addRegistration(row);
+
+  const text = summary(row, options);
+  await sendMail({
+    to: row.email, replyTo: config.organizerEmails, subject: `${config.title}: request received`,
+    text: `Hi ${row.name},\n\nthank you for your registration request. We will follow up by email with a confirmation and information on how to pay the deposit.\n\n${text}\n`,
+  });
+  await sendMail({ to: config.organizerEmails, replyTo: row.email, subject: `New registration: ${row.name}`, text });
   res.send(eta.render('thanks', { config, row }));
 });
 
