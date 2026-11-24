@@ -7,8 +7,10 @@ confirm or cancel by hand.
 ## Principles
 
 This is a very simple project. Keep the code simple, short and easy to
-review. Do not overengineer: no abstractions, layers or dependencies that
-the features below do not need. Prefer fewer files and plain code.
+review. Do not overengineer: no own abstractions or layers that the
+features below do not need. Prefer fewer files and plain code. Use
+well-known libraries instead of writing the same thing yourself, but keep
+the total complexity in proportion to this small project.
 
 ## Stack
 
