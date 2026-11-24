@@ -1,8 +1,8 @@
 {
   "options": [
     { "id": "registration", "group": "fee", "label": "Registration, all nights incl. food", "price": 391, "quantity": 40 },
-    { "id": "missed_night", "group": "fee", "label": "Reduction per missed night", "price": -30 },
-    { "id": "short_night", "group": "fee", "label": "Short stay, price per night", "price": 80 },
+    { "id": "missed_night", "group": "fee", "label": "Reduction per missed night", "price": -21 },
+    { "id": "short_night", "group": "fee", "label": "Short stay, price per night", "price": 70 },
 
     { "id": "king_private", "group": "sleeping", "label": "King bed in private room", "price": 400, "quantity": 3 },
     { "id": "king_cot", "group": "sleeping", "label": "King bed in room shared with 1 cot", "price": 280, "quantity": 3 },

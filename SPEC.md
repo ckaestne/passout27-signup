@@ -20,7 +20,7 @@ only if no key). One Fly.io machine, scales to zero.
 
 ## Event details and texts (in the repo, not the spreadsheet)
 
-- `config.js`: event dates, deposit, short-stay rules, organizer emails,
+- `config.js`: event dates, deposit, organizer emails,
   payment instructions.
 - `content/*.md`: intro and section texts of the form, rendered with a
   Markdown library.
@@ -31,7 +31,7 @@ only if no key). One Fly.io machine, scales to zero.
   Columns: `id`, `group` (fee / sleeping / discount), `label`, `price`,
   `quantity` (empty = unlimited), `kind`.
   - fee rows: registration (391, quantity 40 = max attendees), price per
-    missed night (−30), short-stay price per night (80).
+    missed night (−21), short-stay price per night (70).
   - sleeping rows: the 9 bed types (king private 3 × 400, … , hallway
     couch 1 × 40); "sharing a bed with somebody who booked a bed" and
     camping, unlimited, at camping price.
@@ -49,8 +49,8 @@ only if no key). One Fly.io machine, scales to zero.
 1. **Form**: mirrors the 2026 Google Form (same sections, questions and
    answer types), with the 2027 details updated. Arrival and departure
    are drop-downs of the event days, as last year.
-2. **Live price**: fee = base − missed nights × reduction (or nights ×
-   short-stay rate if ≤ max short nights; 0 for youth) + sleeping price +
+2. **Live price**: fee = min(base + missed nights × missed-night price,
+   nights × short-stay price), 0 for youth; total = fee + sleeping price +
    discount/support. "Custom" discount → total "to be agreed". Show lines,
    total and deposit. Calculated only in the browser; the form submits
    the total and lines as they are (no malicious users expected).

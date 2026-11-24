@@ -16,7 +16,7 @@
 <form method="post" action="/register" id="form">
   <script type="application/json" id="fees"><%~ JSON.stringify({
     registration: registration.price, missedNight: fee('missed_night').price, shortNight: fee('short_night').price,
-    shortStayMaxNights: it.config.shortStayMaxNights, deposit: it.config.deposit }) %></script>
+    deposit: it.config.deposit }) %></script>
   <input type="text" name="website" class="is-hidden" tabindex="-1" autocomplete="off">
   <input type="hidden" name="price_total">
   <input type="hidden" name="price_lines">

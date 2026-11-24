@@ -5,8 +5,6 @@ export default {
   start: '2027-04-10',
   end: '2027-04-18',
   deposit: 200,
-  // Stays of this many nights or fewer pay per night, not the base fee.
-  shortStayMaxNights: 2,
   organizerEmails: ['passout@example.com'],
   paymentInstructions: 'We will email you how to pay the deposit.',
   transportOptions: [

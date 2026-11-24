@@ -18,8 +18,9 @@ function update() {
   }
   if (discount?.dataset.kind === 'youth') {
     lines.push([`Registration, ${nights} nights (youth)`, 0]);
-  } else if (nights <= fees.shortStayMaxNights) {
-    lines.push([`Short stay, ${nights} × ${dollars(fees.shortNight)}`, nights * fees.shortNight]);
+  } else if (nights * fees.shortNight < fees.registration + (allNights - nights) * fees.missedNight) {
+    // Short stay: pay per night if that is cheaper than the reduced fee.
+    lines.push([`Registration, ${nights} × ${dollars(fees.shortNight)}`, nights * fees.shortNight]);
   } else {
     lines.push([`Registration, all ${allNights} nights`, fees.registration]);
     if (nights < allNights) lines.push([`${allNights - nights} missed nights`, (allNights - nights) * fees.missedNight]);
