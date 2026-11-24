@@ -52,7 +52,8 @@ only if no key). One Fly.io machine, scales to zero.
 2. **Live price**: fee = base − missed nights × reduction (or nights ×
    short-stay rate if ≤ max short nights; 0 for youth) + sleeping price +
    discount/support. "Custom" discount → total "to be agreed". Show lines,
-   total and deposit. Server recalculates with the same code.
+   total and deposit. Calculated only in the browser; the form submits
+   the total and lines as they are (no malicious users expected).
 3. **Availability**: "left" = quantity − rows in `registrations` with that
    option and status pending or confirmed. Each bed shows "N of M left".
    Changes in the sheet show on the next page load.
@@ -70,8 +71,7 @@ checking bed partners.
 
 ## Tasks
 
-- [ ] Scaffold, price calculation + tests, form with live price on sample
-      data
+- [ ] Scaffold, form with live price (browser JS) on sample data
 - [ ] Sheets: read options and availability, append registration
 - [ ] Emails
 - [ ] Dockerfile, fly.toml, README with setup steps
