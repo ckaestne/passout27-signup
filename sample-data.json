@@ -1,0 +1,34 @@
+{
+  "options": [
+    { "id": "registration", "group": "fee", "label": "Registration, all nights incl. food", "price": 391, "quantity": 40 },
+    { "id": "missed_night", "group": "fee", "label": "Reduction per missed night", "price": -30 },
+    { "id": "short_night", "group": "fee", "label": "Short stay, price per night", "price": 80 },
+
+    { "id": "king_private", "group": "sleeping", "label": "King bed in private room", "price": 400, "quantity": 3 },
+    { "id": "king_cot", "group": "sleeping", "label": "King bed in room shared with 1 cot", "price": 280, "quantity": 3 },
+    { "id": "queen_cots", "group": "sleeping", "label": "Queen bed (shared with 1 or 2 cots)", "price": 200, "quantity": 1 },
+    { "id": "double_shared", "group": "sleeping", "label": "Double bed in shared room", "price": 200, "quantity": 1 },
+    { "id": "bunk_shared", "group": "sleeping", "label": "Bunk bed in shared room", "price": 160, "quantity": 2 },
+    { "id": "queen_tiny", "group": "sleeping", "label": "Queen bed in tiny house (no bathroom)", "price": 160, "quantity": 1 },
+    { "id": "bunk_tiny", "group": "sleeping", "label": "Bunk bed in tiny house (no bathroom)", "price": 64, "quantity": 2 },
+    { "id": "cot", "group": "sleeping", "label": "Indoor camping / cot in random place (shared room)", "price": 40, "quantity": 10 },
+    { "id": "couch", "group": "sleeping", "label": "Hallway couch", "price": 40, "quantity": 1 },
+    { "id": "share", "group": "sleeping", "label": "Sharing a bed with somebody who booked a bed", "price": 0 },
+    { "id": "camping", "group": "sleeping", "label": "Camping (own tent)", "price": 0 },
+
+    { "id": "none", "group": "discount", "label": "No discount / support", "price": 0 },
+    { "id": "youth", "group": "discount", "label": "Child/youth attendee (free registration for anyone under 18)", "price": 0, "kind": "youth" },
+    { "id": "lower100", "group": "discount", "label": "I'd like to request a lower registration fee", "price": -100 },
+    { "id": "lower200", "group": "discount", "label": "I'd like to request a lower registration fee", "price": -200 },
+    { "id": "custom", "group": "discount", "label": "I'd like to request a different lower registration fee and will email the organizers", "price": 0, "kind": "custom" },
+    { "id": "support50", "group": "discount", "label": "I'd like to support the scholarship program with a higher registration", "price": 50 },
+    { "id": "support100", "group": "discount", "label": "I'd like to support the scholarship program with a higher registration", "price": 100 }
+  ],
+  "registrations": [
+    { "sleeping": "king_private", "status": "confirmed" },
+    { "sleeping": "king_private", "status": "pending" },
+    { "sleeping": "queen_cots", "status": "confirmed" },
+    { "sleeping": "couch", "status": "cancelled" },
+    { "sleeping": "camping", "status": "pending" }
+  ]
+}

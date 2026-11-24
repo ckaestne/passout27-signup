@@ -71,7 +71,7 @@ checking bed partners.
 
 ## Tasks
 
-- [ ] Scaffold, form with live price (browser JS) on sample data
+- [x] Scaffold, form with live price (browser JS) on sample data
 - [ ] Sheets: read options and availability, append registration
 - [ ] Emails
 - [ ] Dockerfile, fly.toml, README with setup steps

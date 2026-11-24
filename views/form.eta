@@ -1,0 +1,126 @@
+<% layout('./layout') %>
+<%
+  const money = p => (p < 0 ? '−$' : '+$') + Math.abs(p);
+  const group = g => it.options.filter(o => o.group === g);
+  const fee = id => it.options.find(o => o.id === id);
+  const registration = fee('registration');
+  const eventFull = registration.left === 0;
+  const days = it.days;
+%>
+
+<div class="content"><%~ it.texts.intro %></div>
+<% if (eventFull) { %>
+  <div class="notification is-warning">The event is full. You can still register to join the waitlist.</div>
+<% } %>
+
+<form method="post" action="/register" id="form">
+  <script type="application/json" id="fees"><%~ JSON.stringify({
+    registration: registration.price, missedNight: fee('missed_night').price, shortNight: fee('short_night').price,
+    shortStayMaxNights: it.config.shortStayMaxNights, deposit: it.config.deposit }) %></script>
+  <input type="text" name="website" class="is-hidden" tabindex="-1" autocomplete="off">
+  <input type="hidden" name="price_total">
+  <input type="hidden" name="price_lines">
+
+  <h2 class="subtitle mt-5">About PassOut</h2>
+  <div class="content"><%~ it.texts.about %></div>
+
+  <h2 class="subtitle mt-5">About you</h2>
+  <div class="field">
+    <label class="label" for="email">Email</label>
+    <input class="input" type="email" id="email" name="email" required>
+  </div>
+  <div class="field">
+    <label class="label" for="name">Your name</label>
+    <input class="input" id="name" name="name" required>
+  </div>
+  <div class="field">
+    <label class="label" for="phone">Your phone number (for coordinating pickups and emergencies only)</label>
+    <input class="input" type="tel" id="phone" name="phone">
+  </div>
+  <div class="field">
+    <label class="label" for="last_passout">What was the last PassOut you attended? If this is your first PassOut, let us know how you heard about PassOut.</label>
+    <input class="input" id="last_passout" name="last_passout">
+  </div>
+
+  <h2 class="subtitle mt-5">Accommodations</h2>
+  <div class="content"><%~ it.texts.accommodations %></div>
+  <div class="field">
+    <label class="label">Accommodation preferences</label>
+    <% group('sleeping').forEach(o => { %>
+      <label class="radio is-block mb-2">
+        <input type="radio" name="sleeping" value="<%= o.id %>" data-price="<%= o.price %>" data-label="<%= o.label %>" required>
+        <%= o.label %> <% if (o.price) { %>(<%= money(o.price) %>)<% } %>
+        <% if (o.left === 0) { %><span class="tag is-warning">full – waitlist</span>
+        <% } else if (o.left !== undefined) { %><span class="tag is-light"><%= o.left %> of <%= o.quantity %> left</span><% } %>
+      </label>
+    <% }) %>
+  </div>
+  <div class="field">
+    <label class="label" for="accommodation_comments">Comments on accommodations (e.g., fallback if your choice is full, relative preferences)</label>
+    <textarea class="textarea" id="accommodation_comments" name="accommodation_comments" rows="2"></textarea>
+  </div>
+
+  <h2 class="subtitle mt-5">Scholarship program</h2>
+  <div class="content"><%~ it.texts.scholarship %></div>
+  <div class="field">
+    <label class="label">Discounts and supports</label>
+    <% group('discount').forEach(o => { %>
+      <label class="radio is-block mb-2">
+        <input type="radio" name="discount" value="<%= o.id %>" data-price="<%= o.price %>" data-kind="<%= o.kind || '' %>" data-label="<%= o.label %>" required>
+        <%= o.label %> <% if (o.price) { %>(<%= money(o.price) %>)<% } %>
+      </label>
+    <% }) %>
+  </div>
+
+  <h2 class="subtitle mt-5">Dates and transportation</h2>
+  <div class="content"><%~ it.texts.dates %></div>
+  <div class="columns">
+    <div class="column field">
+      <label class="label" for="arrive">When do you plan to arrive?</label>
+      <div class="select is-fullwidth"><select id="arrive" name="arrive">
+        <% days.slice(0, -1).forEach((d, i) => { %>
+          <option value="<%= d.value %>"><%= d.label %><% if (i) { %> (<%= i %> night<%= i > 1 ? 's' : '' %> less)<% } %></option>
+        <% }) %>
+      </select></div>
+    </div>
+    <div class="column field">
+      <label class="label" for="leave">When do you plan to leave?</label>
+      <div class="select is-fullwidth"><select id="leave" name="leave">
+        <% days.slice(1).reverse().forEach((d, i) => { %>
+          <option value="<%= d.value %>"><%= d.label %><% if (i) { %> (<%= i %> night<%= i > 1 ? 's' : '' %> less)<% } %></option>
+        <% }) %>
+      </select></div>
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">How will you arrive?</label>
+    <% it.config.transportOptions.forEach(t => { %>
+      <label class="radio is-block mb-2"><input type="radio" name="transport" value="<%= t %>"> <%= t %></label>
+    <% }) %>
+  </div>
+  <div class="field">
+    <label class="label" for="transport_comments">Additional information on transport, like arrival times (if you know already)</label>
+    <textarea class="textarea" id="transport_comments" name="transport_comments" rows="2"></textarea>
+  </div>
+
+  <h2 class="subtitle mt-5">On site</h2>
+  <div class="field">
+    <label class="label" for="diet">Dietary preferences/allergies/restrictions</label>
+    <input class="input" id="diet" name="diet">
+  </div>
+  <div class="field">
+    <label class="label" for="safety">Is there anything we should be aware of for you to feel safe and included?</label>
+    <textarea class="textarea" id="safety" name="safety" rows="2"></textarea>
+  </div>
+  <div class="field">
+    <label class="label" for="other">Anything else?</label>
+    <textarea class="textarea" id="other" name="other" rows="2"></textarea>
+  </div>
+
+  <div class="box price-box">
+    <table class="table is-fullwidth is-narrow mb-2"><tbody id="price-lines"></tbody></table>
+    <p id="price-note" class="is-size-7 mb-3"></p>
+    <button class="button is-primary" type="submit">Register</button>
+  </div>
+</form>
+<script src="/form.js"></script>
