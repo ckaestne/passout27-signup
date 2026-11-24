@@ -42,7 +42,10 @@ app.use('/bulma', express.static('node_modules/bulma/css'));
 
 app.get('/', async (req, res) => {
   const options = withAvailability(await loadData());
-  res.send(eta.render('form', { config, texts, options, days: eventDays() }));
+  // Texts can use {base_fee}; the value comes from the spreadsheet.
+  const baseFee = '$' + options.find(o => o.id === 'registration').price;
+  const filled = Object.fromEntries(Object.entries(texts).map(([k, v]) => [k, v.replaceAll('{base_fee}', baseFee)]));
+  res.send(eta.render('form', { config, texts: filled, options, days: eventDays() }));
 });
 
 app.post('/register', async (req, res) => {
