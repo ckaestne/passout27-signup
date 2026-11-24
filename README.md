@@ -24,13 +24,13 @@ Open http://localhost:3000. Without a `.env` file the app uses
 1. In the Google Cloud console, create a project, enable the
    **Google Sheets API**, and create a **service account**. Create a JSON key
    for it and download the file. Keep it secret.
-2. Create an empty Google Sheet. Share it with the service account's
-   `client_email` (Editor).
+2. The sheet is "PassOut 2027 registrations" in Christian's Drive (ID
+   `1R_cudaU-PAeWgyCZPKo6S9ZpjNzEQSDt8q8fAqjQeEc`), already with both tabs.
+   Share it with the service account's `client_email` (Editor).
+   For a new, empty sheet, run `npm run init-sheet` after step 3.
 3. Copy `.env.example` to `.env`. Set `SHEET_ID` (the long ID in the sheet
    URL) and `GOOGLE_SERVICE_ACCOUNT_JSON` (the key file on one line, for
    example the output of `jq -c . key.json`).
-4. Run `npm run init-sheet`. It creates the tabs `options` (with the start
-   values from `sample-data.json`) and `registrations`.
 
 ## Set up email (Resend)
 

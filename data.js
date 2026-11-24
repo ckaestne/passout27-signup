@@ -32,7 +32,7 @@ export async function loadData() {
 
 export async function addRegistration(row) {
   if (!process.env.SHEET_ID) return console.log('registration (no SHEET_ID, not saved)', row);
-  await (await openSheet()).sheetsByTitle.registrations.addRow(row);
+  await (await openSheet()).sheetsByTitle.registrations.addRow(row, { raw: true }); // raw: '+1 555…' stays text, not a formula
 }
 
 // Adds `left` to every option with a quantity. Pending and confirmed rows hold a place.
