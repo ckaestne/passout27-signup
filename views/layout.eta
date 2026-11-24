@@ -10,7 +10,6 @@
 <body>
   <section class="section">
     <div class="container is-max-tablet">
-      <h1 class="title"><%= it.config.title %></h1>
       <%~ it.body %>
     </div>
   </section>

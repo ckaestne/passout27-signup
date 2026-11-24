@@ -1,1 +1,7 @@
+/* Bulma variables only: grey page so the white boxes stand out, darker text for contrast. */
+:root {
+  --bulma-body-background-color: var(--bulma-scheme-main-ter);
+  --bulma-body-color: var(--bulma-text-strong);
+  --bulma-box-color: var(--bulma-text-strong);
+}
 .price-box { position: sticky; bottom: 0; z-index: 10; }

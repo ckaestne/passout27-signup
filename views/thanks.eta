@@ -1,6 +1,9 @@
 <% layout('./layout') %>
+<div class="box">
+  <h1 class="title"><%= it.config.title %></h1>
 <div class="notification is-success">
   Thank you, <%= it.row.name %>! We received your registration. We will confirm it by email.
 </div>
 <p class="mb-3">Total: <strong><%= it.row.price_total %></strong></p>
 <p><%= it.config.paymentInstructions %></p>
+</div>

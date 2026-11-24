@@ -32,7 +32,7 @@ function update() {
   const custom = discount?.dataset.kind === 'custom';
   lines.push(['Total', custom ? 'to be agreed' : total]);
   show(lines, custom ? 'We will agree on the fee by email.'
-    : `Deposit due now: ${dollars(Math.min(fees.deposit, total))} (non-refundable).`);
+    : `Deposit: ${dollars(Math.min(fees.deposit, total))} (non-refundable).`);
   form.price_total.value = custom ? 'to be agreed' : total;
   form.price_lines.value = lines.map(([l, p]) => `${l}: ${typeof p === 'number' ? dollars(p) : p}`).join('\n');
 }
