@@ -4,6 +4,12 @@ Reservation form for PassOut 2027 (April 10–18, 2027, max 40 people,
 about 40 registrations over 3 months). No online payment. Organizers
 confirm or cancel by hand.
 
+## Principles
+
+This is a very simple project. Keep the code simple, short and easy to
+review. Do not overengineer: no abstractions, layers or dependencies that
+the features below do not need. Prefer fewer files and plain code.
+
 ## Stack
 
 Node.js + Express, Eta templates, Bulma, plain browser JS. Google Sheets
