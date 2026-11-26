@@ -1,3 +1,4 @@
+import './env.js'; // first: later imports read process.env
 import express from 'express';
 import { Eta } from 'eta';
 import { marked } from 'marked';
@@ -70,6 +71,13 @@ app.get('/healthz', (req, res) => res.send('ok'));
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`http://localhost:${port}`);
-  console.log(process.env.SHEET_ID ? 'Data: Google Sheet' : 'Data: sample-data.json (no SHEET_ID, registrations are not saved)');
-  console.log(process.env.RESEND_API_KEY ? `Email: Resend, from ${process.env.MAIL_FROM}` : 'Email: log only (no RESEND_API_KEY)');
+  const warnings = [
+    !process.env.SHEET_ID && 'No SHEET_ID: options come from sample-data.json, registrations are NOT saved.',
+    process.env.SHEET_ID && !process.env.GOOGLE_SERVICE_ACCOUNT_JSON && 'No GOOGLE_SERVICE_ACCOUNT_JSON: the sheet cannot be opened.',
+    !process.env.RESEND_API_KEY && 'No RESEND_API_KEY: emails are NOT sent, only printed to the log.',
+    process.env.RESEND_API_KEY && !process.env.MAIL_FROM && 'No MAIL_FROM: Resend cannot send emails.',
+  ].filter(Boolean);
+  if (process.env.SHEET_ID) console.log(`Data: Google Sheet ${process.env.SHEET_ID}`);
+  if (process.env.RESEND_API_KEY) console.log(`Email: Resend, from ${process.env.MAIL_FROM}`);
+  if (warnings.length) console.warn(['', '!'.repeat(72), '!! WARNING: settings missing, the app does not work fully', ...warnings.map(w => '!! ' + w), '!'.repeat(72), ''].join('\n'));
 });

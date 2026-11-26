@@ -3,9 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node --env-file-if-exists=.env server.js",
-    "dev": "node --env-file-if-exists=.env --watch server.js",
-    "init-sheet": "node --env-file-if-exists=.env scripts/init-sheet.js"
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "init-sheet": "node scripts/init-sheet.js"
   },
   "engines": {
     "node": ">=22"

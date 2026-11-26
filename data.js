@@ -1,4 +1,5 @@
 // Options and registrations: from the Google Sheet if SHEET_ID is set, else from sample-data.json.
+import './env.js';
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
 import { readFileSync } from 'node:fs';
