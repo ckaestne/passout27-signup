@@ -7,15 +7,17 @@ export const registrationColumns = ['timestamp', 'status', 'name', 'email', 'pho
   'sleeping', 'accommodation_comments', 'discount', 'arrive', 'leave', 'transport', 'transport_comments',
   'diet', 'safety', 'other', 'price_total', 'price_lines'];
 
-let doc;
-export async function openSheet() {
-  if (!doc) {
+// Keeps the promise, so parallel requests wait for the same loadInfo(). Forgets it on failure, so the next request tries again.
+let docPromise;
+export function openSheet() {
+  docPromise ??= (async () => {
     const key = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
     const auth = new JWT({ email: key.client_email, key: key.private_key, scopes: ['https://www.googleapis.com/auth/spreadsheets'] });
-    doc = new GoogleSpreadsheet(process.env.SHEET_ID, auth);
+    const doc = new GoogleSpreadsheet(process.env.SHEET_ID, auth);
     await doc.loadInfo();
-  }
-  return doc;
+    return doc;
+  })().catch(err => { docPromise = undefined; throw err; });
+  return docPromise;
 }
 
 const sample = () => JSON.parse(readFileSync(new URL('./sample-data.json', import.meta.url), 'utf8'));
