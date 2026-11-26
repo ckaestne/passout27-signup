@@ -21,3 +21,5 @@ your spot.
 
 A large part of the cost is fixed, so it gets cheaper the more people come.
 If we have a surplus due to higher attendance or lower food costs, we will refund the surplus after the event.
+
+If you have any questions about the event, the community, the site, accessibility, or others, feel free to email any of the organizers before registering.
