@@ -10,6 +10,7 @@
 
 <div class="box">
   <h1 class="title"><%= it.config.title %></h1>
+  <p class="subtitle is-6"><strong><%= it.requests %></strong> registration <%= it.requests === 1 ? 'request' : 'requests' %> received so far</p>
   <div class="content"><%~ it.texts.intro %></div>
   <% if (!eventFull) { %><p class="has-text-danger is-size-7">* Indicates required question</p><% } %>
 </div>
