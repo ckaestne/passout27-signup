@@ -42,11 +42,21 @@ Open http://localhost:3000. Without a `.env` file the app uses
 
 ## Deploy on Fly.io
 
+First time only:
+
 ```bash
-fly launch --no-deploy        # first time only; keeps fly.toml
-fly secrets set SHEET_ID=... RESEND_API_KEY=... MAIL_FROM="Christian Kaestner <christian.k@stner.de>"
-fly secrets set GOOGLE_SERVICE_ACCOUNT_JSON="$(jq -c . key.json)"
-fly deploy --ha=false         # exactly one machine
+fly auth login
+fly launch --no-deploy        # keeps fly.toml; choose a new app name if "passout27-signup" is taken
+fly secrets import < .env     # SHEET_ID, GOOGLE_SERVICE_ACCOUNT_JSON, RESEND_API_KEY, MAIL_FROM
 ```
 
-The machine stops when idle and starts again on the next request.
+Each deploy:
+
+```bash
+fly deploy --ha=false         # exactly one machine
+fly logs                      # look for the "settings missing" warning
+```
+
+`.env` and key files are not copied into the image (`.dockerignore`); on Fly the
+settings come only from `fly secrets`. The machine stops when idle and starts
+again on the next request.

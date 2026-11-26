@@ -1,4 +1,5 @@
 // Sends plain-text email through Resend. Without RESEND_API_KEY, prints the email to the log.
+import './env.js';
 import { Resend } from 'resend';
 
 const resend = process.env.RESEND_API_KEY && new Resend(process.env.RESEND_API_KEY);

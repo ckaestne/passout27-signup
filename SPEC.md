@@ -30,7 +30,7 @@ only if no key). One Fly.io machine, scales to zero.
 - Tab `options`: everything with a price or a limited quantity.
   Columns: `id`, `group` (fee / sleeping / discount), `label`, `price`,
   `quantity` (empty = unlimited), `kind`.
-  - fee rows: registration (391, quantity 40 = max attendees), price per
+  - fee rows: registration (391, no quantity: no attendance limit), price per
     missed night (−21), short-stay price per night (70).
   - sleeping rows: the 9 bed types (king private 3 × 400, … , hallway
     couch 1 × 40); "sharing a bed with somebody who booked a bed" and

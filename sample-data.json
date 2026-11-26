@@ -1,6 +1,6 @@
 {
   "options": [
-    { "id": "registration", "group": "fee", "label": "Registration, all nights incl. food", "price": 391, "quantity": 40 },
+    { "id": "registration", "group": "fee", "label": "Registration, all nights incl. food", "price": 391 },
     { "id": "missed_night", "group": "fee", "label": "Reduction per missed night", "price": -21 },
     { "id": "short_night", "group": "fee", "label": "Short stay, price per night", "price": 70 },
 
