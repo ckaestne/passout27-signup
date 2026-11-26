@@ -3,3 +3,4 @@ node_modules
 .git
 key*.json
 *.pem
+*credentials*.json
