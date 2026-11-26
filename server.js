@@ -68,4 +68,8 @@ app.post('/register', async (req, res) => {
 app.get('/healthz', (req, res) => res.send('ok'));
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`http://localhost:${port}`));
+app.listen(port, () => {
+  console.log(`http://localhost:${port}`);
+  console.log(process.env.SHEET_ID ? 'Data: Google Sheet' : 'Data: sample-data.json (no SHEET_ID, registrations are not saved)');
+  console.log(process.env.RESEND_API_KEY ? `Email: Resend, from ${process.env.MAIL_FROM}` : 'Email: log only (no RESEND_API_KEY)');
+});
