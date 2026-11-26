@@ -34,7 +34,7 @@ Open http://localhost:3000. Without a `.env` file the app uses
 
 ## Set up email (Resend)
 
-1. Create an account at resend.com and add the domain `messages.stner.de`.
+1. Create an account at resend.com and add the domain `stner.de`.
    Add the DNS records that Resend shows.
 2. Create an API key. Set `RESEND_API_KEY` and `MAIL_FROM` (an address on
    the verified domain).
@@ -44,7 +44,7 @@ Open http://localhost:3000. Without a `.env` file the app uses
 
 ```bash
 fly launch --no-deploy        # first time only; keeps fly.toml
-fly secrets set SHEET_ID=... RESEND_API_KEY=... MAIL_FROM="Christian Kaestner <passout@messages.stner.de>"
+fly secrets set SHEET_ID=... RESEND_API_KEY=... MAIL_FROM="Christian Kaestner <christian.k@stner.de>"
 fly secrets set GOOGLE_SERVICE_ACCOUNT_JSON="$(jq -c . key.json)"
 fly deploy --ha=false         # exactly one machine
 ```
