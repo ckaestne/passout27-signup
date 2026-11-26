@@ -57,6 +57,8 @@ only if no key). One Fly.io machine, scales to zero.
 3. **Availability**: "left" = quantity − rows in `registrations` with that
    option and status pending or confirmed. Each bed shows "N of M left".
    Changes in the sheet show on the next page load.
+   Below the title, the page shows the number of registration requests so far
+   (rows with status pending or confirmed).
 4. **Full**: a full option cannot be chosen. If the event is full, the
    form is closed.
 5. **Email** on submit: to the attendee (answers, price lines, total,

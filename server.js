@@ -42,11 +42,14 @@ app.use(express.static('public'));
 app.use('/bulma', express.static('node_modules/bulma/css'));
 
 app.get('/', async (req, res) => {
-  const options = withAvailability(await loadData());
+  const data = await loadData();
+  const options = withAvailability(data);
+  // Pending and confirmed requests; cancelled rows do not count.
+  const requests = data.registrations.filter(r => r.status === 'pending' || r.status === 'confirmed').length;
   // Texts can use {base_fee}; the value comes from the spreadsheet.
   const baseFee = '$' + options.find(o => o.id === 'registration').price;
   const filled = Object.fromEntries(Object.entries(texts).map(([k, v]) => [k, v.replaceAll('{base_fee}', baseFee)]));
-  res.send(eta.render('form', { config, texts: filled, options, days: eventDays() }));
+  res.send(eta.render('form', { config, texts: filled, options, requests, days: eventDays() }));
 });
 
 app.post('/register', async (req, res) => {
