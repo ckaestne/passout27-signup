@@ -5,8 +5,8 @@ about an hour and a half south of St. Louis, at
 Address: [Mitchell Pass Lodge, 5341 Mitchell Pass, Park Hills, MO 63601](https://maps.app.goo.gl/QeiQNNjGcfPABhV48)
 
 Organizers: Lisa ([elisabeth.wiencek@gmail.com](mailto:elisabeth.wiencek@gmail.com)),
-Christian ([christian.k@stner.de](mailto:christian.k@stner.de)), and
-Greg ([w.greg.phillips@gmail.com](mailto:w.greg.phillips@gmail.com)).
+Greg ([w.greg.phillips@gmail.com](mailto:w.greg.phillips@gmail.com)), and
+Christian ([christian.k@stner.de](mailto:christian.k@stner.de)).
 
 The venue has a 1760 square foot gym with 20 foot ceilings, a range of bedrooms and beds,
 10 bathrooms, and space for both indoor and outdoor camping. Hit the "Show More" button
